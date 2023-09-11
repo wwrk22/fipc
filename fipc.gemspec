@@ -8,17 +8,25 @@ Gem::Specification.new do |spec|
   spec.authors = ["Won Rhim"]
   spec.email = ["wwrk22@gmail.com"]
 
-  spec.summary = "TODO: Write a short summary, because RubyGems requires one."
-  spec.description = "TODO: Write a longer description or delete this line."
-  spec.homepage = "TODO: Put your gem's website or public repo URL here."
+  spec.summary = <<~SUMMARY.chomp.gsub("\n", " ")
+    An opinionated collector and organizer of financial information for public
+    companies that file with the SEC.
+  SUMMARY
+  spec.description = <<~DESCRIPTION.chomp.gsub("\n", " ")
+    The fipc gem fetches financial information of public companies using the
+    SEC's EDGAR API. It then processes the raw JSON data retrieved to produce
+    organized and meaningful financial information for analyses by users.
+  DESCRIPTION
+
+  spec.homepage = "https://rubygems.org/gems/fipc"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 2.6.0"
 
-  spec.metadata["allowed_push_host"] = "TODO: Set to your gem server 'https://example.com'"
+  spec.metadata["allowed_push_host"] = "https://rubygems.org"
 
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "TODO: Put your gem's public repo URL here."
-  spec.metadata["changelog_uri"] = "TODO: Put your gem's CHANGELOG.md URL here."
+  spec.metadata["source_code_uri"] = "https://github.com/wwrk22/fipc"
+  spec.metadata["changelog_uri"] = "https://github.com/wwrk22/fipc/blob/main/CHANGELOG.md"
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
