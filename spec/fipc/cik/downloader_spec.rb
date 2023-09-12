@@ -1,18 +1,17 @@
 # frozen_string_literal: true
 
-require 'fipc/cik'
-
+require "fipc/cik"
 
 RSpec.describe Fipc::Cik::Downloader do
-  describe '.cik_list' do
+  describe ".cik_list" do
     RSpec::Matchers.define :be_valid_edgar_data do |_|
       match do |actual_json|
-        actual_json.kind_of?(Hash) &&
-        actual_json.each_value.all? do |entity|
-          entity.has_key?("cik_str") &&
-          entity.has_key?("ticker") &&
-          entity.has_key?("title")
-        end
+        actual_json.is_a?(Hash) &&
+          actual_json.each_value.all? do |entity|
+            entity.key?("cik_str") &&
+              entity.key?("ticker") &&
+              entity.key?("title")
+          end
       end
     end
 
