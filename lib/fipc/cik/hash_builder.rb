@@ -1,0 +1,2 @@
+class Cik::HashBuilder
+end
