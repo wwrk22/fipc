@@ -6,3 +6,4 @@ module Fipc
 end
 
 require_relative "cik/downloader"
+require_relative "cik/hash_builder"

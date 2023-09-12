@@ -15,7 +15,7 @@ RSpec.describe Fipc::Cik::Downloader do
       end
     end
 
-    subject(:cik_json) { Fipc::Cik::Downloader.cik_list }
+    subject(:cik_json) { described_class.cik_list }
 
     # JSON provided by EDGAR API as of 09-12-2023:
     # {
