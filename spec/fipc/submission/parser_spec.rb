@@ -2,7 +2,7 @@
 
 require "fipc/submission"
 
-RSpec.describe Fipc::Submission::Parser do 
+RSpec.describe Fipc::Submission::Parser do
   describe ".parse" do
     it "returns a slimmed-down version of the EDGAR submission JSON" do
       raw_submission = Fipc::Submission::Fetcher.fetch("0000092380")
