@@ -6,4 +6,3 @@ module Fipc
 end
 
 require_relative "submission/fetcher"
-require_relative "submission/parser"
