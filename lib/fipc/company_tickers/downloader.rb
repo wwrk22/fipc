@@ -4,7 +4,7 @@ require "json"
 require "net/http"
 
 module Fipc
-  class Cik
+  class CompanyTickers
     # Download the company_tickers.json file from SEC's EDGAR API to produce a ruby
     # hash from the JSON.
     #
