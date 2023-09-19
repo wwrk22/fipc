@@ -3,9 +3,9 @@
 require "support/custom_matchers/be_valid_ticker_hash"
 require "support/custom_matchers/be_valid_name_hash"
 
-require "fipc/cik"
+require "fipc/company_tickers/hash_builder"
 
-RSpec.describe Fipc::Cik::HashBuilder do
+RSpec.describe Fipc::CompanyTickers::HashBuilder do
   let!(:sample_edgar_json) do
     {
       "0" => { "cik_str" => 320_193, "ticker" => "AAPL", "title" => "Apple Inc." },

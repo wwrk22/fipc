@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Fipc
-  class Cik
+  class CompanyTickers
     # Accept a JSON object containing company CIK data, and build two types of
     # hashes. First type has items whose key is the ticker symbol and value is
     # the CIK. Second type has items whose key is the company name and value is

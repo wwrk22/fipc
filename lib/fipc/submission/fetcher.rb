@@ -2,7 +2,7 @@
 
 require "json"
 require "net/http"
-require "fipc/cik/utility"
+require "fipc/company_tickers/utility"
 
 module Fipc
   class Submission
@@ -12,7 +12,7 @@ module Fipc
     class Fetcher
       class << self
         def fetch(cik)
-          cik = Fipc::Cik::Utility.correct_format(cik)
+          cik = Fipc::CompanyTickers::Utility.correct_format(cik)
           uri = URI("https://data.sec.gov/submissions/CIK#{cik}.json")
           headers = { "user-agent" => "Won Rhim wwrk22@gmail.com" }
           json = Net::HTTP.get(uri, headers)

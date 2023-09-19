@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require "fipc/cik"
+require "fipc/company_tickers/downloader"
 
-RSpec.describe Fipc::Cik::Downloader do
+RSpec.describe Fipc::CompanyTickers::Downloader do
   describe ".cik_list" do
     RSpec::Matchers.define :be_valid_edgar_data do |_|
       match do |actual_json|
