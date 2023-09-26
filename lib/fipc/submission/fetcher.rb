@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "json"
-require "net/http"
 require "fipc/company_tickers/utility"
 
 module Fipc
@@ -14,7 +12,7 @@ module Fipc
         def fetch(cik)
           cik = Fipc::CompanyTickers::Utility.correct_format(cik)
           endpoint = "https://data.sec.gov/submissions/CIK#{cik}.json"
-          EdgarApi.fetch_json(endpoint)
+          EdgarApi.fetch_json(endpoint, "Won Rhim", "wwrk22@gmail.com")
         end
       end
     end

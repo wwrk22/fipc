@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "net/http"
 require "fipc/submission"
 
 RSpec.describe Fipc::Submission::Fetcher do

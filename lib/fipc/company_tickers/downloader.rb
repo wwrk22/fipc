@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "json"
-require "net/http"
 require "fipc/edgar_api"
 
 module Fipc
@@ -18,7 +16,7 @@ module Fipc
       class << self
         def cik_list
           endpoint = "https://www.sec.gov/files/company_tickers.json"
-          EdgarApi.fetch_json(endpoint)
+          EdgarApi.fetch_json(endpoint, "Won Rhim", "wwrk22@gmail.com") # hardcoded
         end
       end
     end
