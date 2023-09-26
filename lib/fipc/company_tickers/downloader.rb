@@ -2,6 +2,7 @@
 
 require "json"
 require "net/http"
+require "fipc/edgar_api"
 
 module Fipc
   class CompanyTickers
@@ -16,9 +17,8 @@ module Fipc
     class Downloader
       class << self
         def cik_list
-          uri = URI("https://www.sec.gov/files/company_tickers.json")
-          json = Net::HTTP.get(uri)
-          JSON.parse(json)
+          endpoint = "https://www.sec.gov/files/company_tickers.json"
+          EdgarApi.fetch(endpoint)
         end
       end
     end

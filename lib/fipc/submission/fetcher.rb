@@ -13,10 +13,8 @@ module Fipc
       class << self
         def fetch(cik)
           cik = Fipc::CompanyTickers::Utility.correct_format(cik)
-          uri = URI("https://data.sec.gov/submissions/CIK#{cik}.json")
-          headers = { "user-agent" => "Won Rhim wwrk22@gmail.com" }
-          json = Net::HTTP.get(uri, headers)
-          JSON.parse(json)
+          endpoint = "https://data.sec.gov/submissions/CIK#{cik}.json"
+          EdgarApi.fetch(endpoint)
         end
       end
     end
