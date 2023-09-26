@@ -26,7 +26,7 @@ module Fipc
             output[company["ticker"]] = company["cik_str"]
           end
         end
- 
+
         # Produce a hash of items whose key is the company title, and the valu
         # is the company CIK. The key is a string, and the value is an integer.
         def name_hash(raw_edgar_json)

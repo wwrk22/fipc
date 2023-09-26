@@ -18,7 +18,7 @@ module Fipc
       class << self
         def cik_list
           endpoint = "https://www.sec.gov/files/company_tickers.json"
-          EdgarApi.fetch(endpoint)
+          EdgarApi.fetch_json(endpoint)
         end
       end
     end

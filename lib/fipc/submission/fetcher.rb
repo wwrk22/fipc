@@ -14,7 +14,7 @@ module Fipc
         def fetch(cik)
           cik = Fipc::CompanyTickers::Utility.correct_format(cik)
           endpoint = "https://data.sec.gov/submissions/CIK#{cik}.json"
-          EdgarApi.fetch(endpoint)
+          EdgarApi.fetch_json(endpoint)
         end
       end
     end
