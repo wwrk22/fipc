@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "json"
-require "net/http"
 require "fipc/company_tickers/utility"
 
 module Fipc
@@ -13,10 +11,8 @@ module Fipc
       class << self
         def fetch(cik)
           cik = Fipc::CompanyTickers::Utility.correct_format(cik)
-          uri = URI("https://data.sec.gov/submissions/CIK#{cik}.json")
-          headers = { "user-agent" => "Won Rhim wwrk22@gmail.com" }
-          json = Net::HTTP.get(uri, headers)
-          JSON.parse(json)
+          endpoint = "https://data.sec.gov/submissions/CIK#{cik}.json"
+          EdgarApi.fetch_json(endpoint, "Won Rhim", "wwrk22@gmail.com")
         end
       end
     end
