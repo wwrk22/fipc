@@ -18,12 +18,17 @@ module Fipc
       #   ...
       # }
       class << self
+        # Produce a hash of items whose key is the company ticker symbol, and
+        # the value is the company CIK. The key is a string, and the value is
+        # an integer.
         def ticker_hash(raw_edgar_json)
           raw_edgar_json.each_with_object({}) do |(_, company), output|
             output[company["ticker"]] = company["cik_str"]
           end
         end
-
+ 
+        # Produce a hash of items whose key is the company title, and the valu
+        # is the company CIK. The key is a string, and the value is an integer.
         def name_hash(raw_edgar_json)
           raw_edgar_json.each_with_object({}) do |(_, company), output|
             output[company["title"]] = company["cik_str"]
