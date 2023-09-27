@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Fipc
-  class CompanyTickers
+  class Cik
     # Validate the contents of the SEC's company_tickers.json file. The JSON
     # data is expected to have been parsed and given to this class as a hash.
     class Validator

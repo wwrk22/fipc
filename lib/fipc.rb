@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require_relative "fipc/version"
+require "fipc/version"
+require "fipc/cik"
 
 module Fipc
   class Error < StandardError; end
-  # Your code goes here...
 end

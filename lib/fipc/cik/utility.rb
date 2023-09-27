@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Fipc
-  class CompanyTickers
+  class Cik
     # Utility functions for working with CIK numbers.
     # Example:
     #   Pad a CIK with zeros to use in EDGAR API endpoints.

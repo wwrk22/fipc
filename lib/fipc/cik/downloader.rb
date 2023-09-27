@@ -3,7 +3,7 @@
 require "fipc/edgar_api"
 
 module Fipc
-  class CompanyTickers
+  class Cik
     # Download the company_tickers.json file from SEC's EDGAR API to produce a ruby
     # hash from the JSON.
     #
@@ -14,7 +14,7 @@ module Fipc
     # }
     class Downloader
       class << self
-        def cik_list
+        def full_list
           endpoint = "https://www.sec.gov/files/company_tickers.json"
           EdgarApi.fetch_json(endpoint, "Won Rhim", "wwrk22@gmail.com") # hardcoded
         end

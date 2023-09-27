@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require "fipc/company_tickers/downloader"
+require "fipc/cik/downloader"
 
-RSpec.describe Fipc::CompanyTickers::Downloader do
-  describe ".cik_list" do
+RSpec.describe Fipc::Cik::Downloader do
+  describe ".full_list" do
     RSpec::Matchers.define :be_valid_edgar_data do |_|
       match do |actual_json|
         actual_json.is_a?(Hash) &&
@@ -15,7 +15,7 @@ RSpec.describe Fipc::CompanyTickers::Downloader do
       end
     end
 
-    subject(:cik_json) { described_class.cik_list }
+    subject(:cik_json) { described_class.full_list }
 
     # JSON provided by EDGAR API as of 09-12-2023:
     # {

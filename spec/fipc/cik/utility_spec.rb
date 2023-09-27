@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require "fipc/company_tickers/utility"
+require "fipc/cik/utility"
 
-RSpec.describe Fipc::CompanyTickers::Utility do
+RSpec.describe Fipc::Cik::Utility do
   describe ".correct_format" do
     it "returns a CIK with the correct number of zeros padded" do
       cik = String.new "12345"
