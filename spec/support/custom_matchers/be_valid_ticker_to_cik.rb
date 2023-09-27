@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class BeValidTickerHash
+class BeValidTickerToCik
   def description
     "be a valid ticker-to-CIK hash"
   end
@@ -15,6 +15,6 @@ class BeValidTickerHash
   end
 end
 
-def be_valid_ticker_hash
-  BeValidTickerHash.new
+def be_valid_ticker_to_cik
+  BeValidTickerToCik.new
 end
