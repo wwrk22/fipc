@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require "net/http"
-require "fipc/submission"
+require "fipc/submissions/fetcher"
 
-RSpec.describe Fipc::Submission::Fetcher do
+RSpec.describe Fipc::Submissions::Fetcher do
   describe ".fetch" do
     RSpec::Matchers.define :be_valid_submission do |_|
       match do |submission|

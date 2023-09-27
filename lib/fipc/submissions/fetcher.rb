@@ -3,7 +3,7 @@
 require "fipc/cik/utility"
 
 module Fipc
-  class Submission
+  class Submissions
     # Fetch the JSON-format company submission data from the SEC EDGAR
     # submissions API. The CIK of a company is required for a single submission
     # fetch.
