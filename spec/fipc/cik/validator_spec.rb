@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "json"
-require "fipc/company_tickers/validator"
+require "fipc/cik/validator"
 
 require "support/json_processor"
 
@@ -9,7 +9,7 @@ RSpec.configure do |cfg|
   cfg.include JsonProcessor
 end
 
-RSpec.describe Fipc::CompanyTickers::Validator do
+RSpec.describe Fipc::Cik::Validator do
   describe ".validate_keys" do
     let!(:validate) do
       lambda do |company_tickers_json|
@@ -19,7 +19,7 @@ RSpec.describe Fipc::CompanyTickers::Validator do
 
     context "when valid data is given" do
       it "returns true for all validations" do
-        samples_dir = "spec/samples/company_tickers/valid/keys"
+        samples_dir = "spec/samples/cik/valid/keys"
         results = process(samples_dir, &validate)
 
         expect(results).to all(eq(true))
@@ -28,7 +28,7 @@ RSpec.describe Fipc::CompanyTickers::Validator do
 
     context "when invalid data is given" do
       it "returns false for all validations" do
-        samples_dir = "spec/samples/company_tickers/invalid/keys"
+        samples_dir = "spec/samples/cik/invalid/keys"
         results = process(samples_dir, &validate)
 
         expect(results).to all(eq(false))

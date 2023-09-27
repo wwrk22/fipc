@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "fipc/company_tickers/utility"
+require "fipc/cik/utility"
 
 module Fipc
   class Submission
@@ -10,7 +10,7 @@ module Fipc
     class Fetcher
       class << self
         def fetch(cik)
-          cik = Fipc::CompanyTickers::Utility.correct_format(cik)
+          cik = Fipc::Cik::Utility.correct_format(cik)
           endpoint = "https://data.sec.gov/submissions/CIK#{cik}.json"
           EdgarApi.fetch_json(endpoint, "Won Rhim", "wwrk22@gmail.com")
         end

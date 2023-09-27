@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 module Fipc
-  class CompanyTickers
+  class Cik
   end
 end
 
-require_relative "company_tickers/downloader"
-require_relative "company_tickers/hash_builder"
+require_relative "cik/downloader"
+require_relative "cik/hash_builder"

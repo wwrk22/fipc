@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-class BeValidNameHash
+class BeValidTitleHash
   def description
-    "be a valid name-to-CIK hash"
+    "be a valid title-to-CIK hash"
   end
 
   def matches?(actual_hash)
@@ -12,6 +12,6 @@ class BeValidNameHash
   end
 end
 
-def be_valid_name_hash
-  BeValidNameHash.new
+def be_valid_title_hash
+  BeValidTitleHash.new
 end

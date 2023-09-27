@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 require "support/custom_matchers/be_valid_ticker_hash"
-require "support/custom_matchers/be_valid_name_hash"
+require "support/custom_matchers/be_valid_title_hash"
 
-require "fipc/company_tickers/hash_builder"
+require "fipc/cik/hash_builder"
 
-RSpec.describe Fipc::CompanyTickers::HashBuilder do
+RSpec.describe Fipc::Cik::HashBuilder do
   let!(:sample_edgar_json) do
     {
       "0" => { "cik_str" => 320_193, "ticker" => "AAPL", "title" => "Apple Inc." },
@@ -21,10 +21,10 @@ RSpec.describe Fipc::CompanyTickers::HashBuilder do
     end
   end
 
-  describe ".name_hash" do
+  describe ".title_hash" do
     it "returns a hash of items with company name as key and CIK as value" do
-      name_to_cik = described_class.name_hash sample_edgar_json
-      expect(name_to_cik).to be_valid_name_hash
+      name_to_cik = described_class.title_hash sample_edgar_json
+      expect(name_to_cik).to be_valid_title_hash
     end
   end
 end
