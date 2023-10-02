@@ -13,7 +13,7 @@ module Fipc
       NEW_SUBMISSIONS_FILE_PATH = "./sec_data/submissions.zip"
 
       class << self
-        def download(user_agent:, file_path: NEW_SUBMISSIONS_FILE_PATH)
+        def download(user_agent:, file_path: nil)
           result = { response: nil, file_path: file_path }
           fetch(user_agent, result)
           save(result) if result[:response].is_a?(Net::HTTPSuccess)
@@ -29,13 +29,13 @@ module Fipc
         end
 
         def save(result)
-          delet_existing_submissions(result)
+          delete_existing_submissions(result)
 
           file_size = File.open(NEW_SUBMISSIONS_FILE_PATH, "w") do |new_file|
             new_file.write(result[:response].body)
           end
 
-          result[:file_path] = nil if file_size.zero?
+          result[:file_path] = NEW_SUBMISSIONS_FILE_PATH if file_size > 0
         end
 
         def delete_existing_submissions(result)

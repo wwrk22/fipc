@@ -8,13 +8,12 @@ RSpec.describe Fipc::Submissions::Downloader do
       context "when the HTTP request for the file is successful" do
         it "saves the file and returns a hash of info indicating success" do
           user_agent = "Foo Bar foobar@example.com"
-          success_response = instance_double(Net::HTTPSuccess,
-                                             code: 200,
-                                             body: "fake zip file content")
+          ok_response = Net::HTTPOK.new("HTTP/2", 200, "Ok")
+          allow(ok_response).to receive(:body).and_return("fake zip file content")
           allow(Net::HTTP).to receive(:get_response)
             .with(URI(described_class::SUBMISSIONS_URL),
                   { described_class::USER_AGENT_KEY => user_agent })
-            .and_return(success_response)
+            .and_return(ok_response)
           allow(File).to receive(:delete)
             .with(described_class::NEW_SUBMISSIONS_FILE_PATH)
             .and_return(1)
@@ -22,12 +21,19 @@ RSpec.describe Fipc::Submissions::Downloader do
             .with(described_class::NEW_SUBMISSIONS_FILE_PATH, "w")
             .and_return(1)
 
-          expected_result = { response: success_response,
-                              file_path: "./sec_data/submissions.zip" }
+          expected = { response: ok_response,
+                       file_path: "./sec_data/submissions.zip" }
 
           result = described_class.download(user_agent: user_agent)
 
-          expect(result).to eq(expected_result)
+          expect(result).to eq(expected)
+        end
+      end
+
+      context "when the HTTP request for the file fails" do
+        it "does not write a file and returns a hash of info indicating failure" do
+          expected = { response: failure_response, file_path: nil }
+          expect(result).to eq(expected)
         end
       end
     end
