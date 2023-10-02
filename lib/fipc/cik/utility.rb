@@ -12,8 +12,8 @@ module Fipc
           # Let's just return nil for now.
           return nil if cik_str.length > 10
 
-          (10 - cik_str.length).times.inject(String.new(cik_str)) do |padded_cik, _|
-            padded_cik = "0" + padded_cik
+          (10 - cik_str.length).times.inject(cik_str.to_s) do |padded_cik, _|
+            "0#{padded_cik}"
           end
         end
       end

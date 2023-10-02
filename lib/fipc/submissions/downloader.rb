@@ -4,6 +4,9 @@ require "net/http"
 
 module Fipc
   class Submissions
+    # Download and save the submissions.zip file to disk.
+    # The file is fetched from the SEC's EDGAR API at the following endpoint.
+    # https://www.sec.gov/Archives/edgar/daily-index/bulkdata/submissions.zip
     class Downloader
       SUBMISSIONS_URL = "https://www.sec.gov/Archives/edgar/daily-index/bulkdata/submissions.zip"
       USER_AGENT_KEY = "User-Agent"
@@ -28,19 +31,17 @@ module Fipc
         def save(result)
           delet_existing_submissions(result)
 
-          file_size = File.open(NEW_SUBMISSIONS_FILE_PATH, 'w') do |new_file|
+          file_size = File.open(NEW_SUBMISSIONS_FILE_PATH, "w") do |new_file|
             new_file.write(result[:response].body)
           end
 
-          result[:file_path] = nil if file_size == 0
+          result[:file_path] = nil if file_size.zero?
         end
 
         def delete_existing_submissions(result)
-          begin
-            File.delete("./sec_data/submissions.zip")
-          rescue SystemCallError => error # common case will give us Errno::ENOENT
-            result[:delete_file_error] = error
-          end
+          File.delete("./sec_data/submissions.zip")
+        rescue SystemCallError => e # common case will give us Errno::ENOENT
+          result[:delete_file_error] = e
         end
       end
     end
