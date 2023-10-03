@@ -7,6 +7,8 @@ module Fipc
   # The source file is located at:
   # https://www.sec.gov/files/company_tickers.json
   class Cik
+    attr_reader :ticker_to_cik
+
     def initialize
       unprocessed_list = Downloader.full_list
       @ticker_to_cik = HashBuilder.ticker_to_cik(unprocessed_list)

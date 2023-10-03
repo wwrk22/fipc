@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Fipc
-  class Submission
+  class Submissions
     # Parse a raw submission JSON fetched from the SEC EDGAR submissions API.
     # Produce a hash of selected information from the submission. The raw
     # submission JSON can be fetched by using Fipc::Submission::Fetcher.

@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require "json"
-require "fipc/submission"
+require "fipc/submissions/parser"
 
-RSpec.describe Fipc::Submission::Parser do
+RSpec.describe Fipc::Submissions::Parser do
   describe ".parse" do
     it "returns a processed version of the EDGAR submission JSON" do
       # Use a saved raw submission json in place of one directly fetched from
