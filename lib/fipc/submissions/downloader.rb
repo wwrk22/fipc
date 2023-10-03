@@ -29,11 +29,9 @@ module Fipc
         end
 
         def save(result)
-          begin
-            result[:file_size] = write_new_file(result)
-          rescue SystemCallError => e
-            result[:file_error] = e
-          end
+          result[:file_size] = write_new_file(result)
+        rescue SystemCallError => e
+          result[:file_error] = e
         end
 
         def write_new_file(result)

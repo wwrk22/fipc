@@ -48,6 +48,29 @@ RSpec.describe Fipc::Submissions::Downloader do
           expect(result).to eq(expected)
         end
       end
+
+      context "when a file operation raises a SystemCallError" do
+        let!(:expected_error) { Errno::ENOENT.new }
+
+        it "returns a hash of info indicating failure" do
+          ok_response = Net::HTTPOK.new("HTTP/2", 200, "OK")
+          allow(ok_response).to receive(:body).and_return("fake zip file content")
+          allow(Net::HTTP).to receive(:get_response)
+            .with(URI(described_class::SUBMISSIONS_URL),
+                  { described_class::USER_AGENT_KEY => user_agent })
+            .and_return(ok_response)
+          allow(File).to receive(:delete)
+            .with(described_class::NEW_SUBMISSIONS_FILE_PATH)
+            .and_raise(expected_error)
+          expected = { response: ok_response,
+                       file_path: described_class::NEW_SUBMISSIONS_FILE_PATH,
+                       file_error: expected_error }
+
+          result = described_class.download(user_agent: user_agent)
+
+          expect(result).to eq(expected)
+        end
+      end
     end
   end
 end
