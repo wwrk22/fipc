@@ -8,6 +8,8 @@ RSpec.describe Fipc::Submissions::Downloader do
       let!(:user_agent) { "Foo Bar foobar@example.com" }
 
       context "when the HTTP request for the file is successful" do
+        let!(:test_file_size) { 1 }
+
         it "saves the file and returns a hash of info indicating success" do
           ok_response = Net::HTTPOK.new("HTTP/2", 200, "OK")
           allow(ok_response).to receive(:body).and_return("fake zip file content")
@@ -20,9 +22,10 @@ RSpec.describe Fipc::Submissions::Downloader do
             .and_return(1)
           allow(File).to receive(:open)
             .with(described_class::NEW_SUBMISSIONS_FILE_PATH, "w")
-            .and_return(1)
+            .and_return(test_file_size)
           expected = { response: ok_response,
-                       file_path: "./sec_data/submissions.zip" }
+                       file_path: "./sec_data/submissions.zip",
+                       file_size: test_file_size }
 
           result = described_class.download(user_agent: user_agent)
 
@@ -37,7 +40,8 @@ RSpec.describe Fipc::Submissions::Downloader do
             .with(URI(described_class::SUBMISSIONS_URL),
                   { described_class::USER_AGENT_KEY => user_agent })
             .and_return(not_found_response)
-          expected = { response: not_found_response, file_path: nil }
+          expected = { response: not_found_response,
+                       file_path: described_class::NEW_SUBMISSIONS_FILE_PATH }
 
           result = described_class.download(user_agent: user_agent)
 
