@@ -40,7 +40,7 @@ module Fipc
 
         def delete_existing_submissions(result)
           File.delete("./sec_data/submissions.zip")
-        rescue SystemCallError => e # common case will give us Errno::ENOENT
+        rescue Errno::ENOENT => e # common case will give us Errno::ENOENT
           result[:delete_file_error] = e
         end
       end
