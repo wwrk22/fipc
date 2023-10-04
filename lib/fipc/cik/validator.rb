@@ -18,11 +18,17 @@ module Fipc
           first_key.zero? && json.size == (last_key - first_key + 1)
         end
 
-        def validate_entry_value_keys(cik_entries_json)
-          cik_entries_json.all? do |entry|
+        def validate_entry_value_keys(company_tickers_json)
+          company_tickers_json.all? do |entry|
             missing_keys = VALID_VALUE_KEYS.difference(entry[1].keys)
             extra_keys = entry[1].keys.difference(VALID_VALUE_KEYS)
             missing_keys.size.zero? && extra_keys.size.zero?
+          end
+        end
+
+        def validate_entry_order(company_tickers_json)
+          company_tickers_json.each_cons(2).all? do |entry_a, entry_b|
+            entry_b[0].to_i == entry_a[0].to_i + 1
           end
         end
       end

@@ -57,4 +57,19 @@ RSpec.describe Fipc::Cik::Validator do
       end
     end
   end
+
+  describe ".validate_entry_order" do
+    let!(:validate) do
+      lambda do |company_tickers_json|
+        described_class.validate_entry_order(company_tickers_json)
+      end
+    end
+
+    context "when valid data is given" do
+      it "returns true" do
+        results = process(valid_samples_dir, &validate)
+        expect(results).to all(eq(true))
+      end
+    end
+  end
 end
