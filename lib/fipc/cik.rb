@@ -10,15 +10,23 @@ module Fipc
     attr_reader :ticker_to_cik
 
     def initialize
-      unprocessed_list = Downloader.full_list
-      @ticker_to_cik = Validator.validate(unprocessed_list) ?
-        HashBuilder.ticker_to_cik(unprocessed_list) :
-        { failure_message: "company_tickers.json validation failed",
-          unprocessed_list: unprocessed_list }
+      company_tickers_json = Downloader.full_list
+      @ticker_to_cik = create_ticker_to_cik(company_tickers_json)
     end
 
     def cik_for_ticker(ticker)
       @ticker_to_cik.key?(ticker) ? @ticker_to_cik[ticker] : -1
+    end
+
+    private
+
+    def create_ticker_to_cik(company_tickers_json)
+      if Validator.validate(company_tickers_json)
+        HashBuilder.ticker_to_cik(company_tickers_json)
+      else
+        { failure_message: "company_tickers.json validation failed",
+          company_tickers_json: company_tickers_json }
+      end
     end
   end
 end
