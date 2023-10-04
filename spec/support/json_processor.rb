@@ -9,8 +9,8 @@ module JsonProcessor
   def process(dir)
     opened_dir = Dir.new dir
 
-    opened_dir.each_child.inject([]) do |results, filename|
-      file_content = File.open("#{opened_dir.path}/#{filename}", &:read)
+    opened_dir.each_child.inject([]) do |results, file_name|
+      file_content = File.open("#{opened_dir.path}/#{file_name}", &:read)
       json = JSON.parse(file_content)
       results << (block_given? ? yield(json) : nil)
     end
