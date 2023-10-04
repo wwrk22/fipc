@@ -27,16 +27,20 @@ module Fipc
 
       Zip::File.open(file_path) do |zip|
         zip.each do |entry|
-          cik = entry.name[3..12].to_i
-
-          if entry.name =~ /CIK[0-9]{10}\.json/ && @ciks.include?(cik)
-            parsed_content = Parser.parse(entry.get_input_stream.read)
-            @submissions[parsed_content[:ticker]] = parsed_content
-          end
+          process_entry(entry)
         end
       end
+    end
 
-      @submissions
+    private
+
+    def process_entry(entry)
+      cik = entry.name[3..12].to_i
+
+      if entry.name =~ /CIK[0-9]{10}\.json/ && @ciks.include?(cik)
+        parsed_content = Parser.parse(entry.get_input_stream.read)
+        @submissions[parsed_content[:ticker]] = parsed_content
+      end
     end
   end
 end

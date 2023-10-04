@@ -11,41 +11,27 @@ RSpec.describe Fipc::Submissions do
   describe "#fetch_all" do
     let!(:user_agent) { "Foo Bar foobar@example.com" }
     let!(:file_path) { "spec/samples/submissions/zip/submissions.zip" }
+    let!(:ticker_to_cik) { { "AAA" => 11111, "BBB" => 22222 } }
     subject(:submissions) { described_class.new(user_agent) }
 
     before do
-      ciks = instance_double(Fipc::Cik, ticker_to_cik: { "AAA" => 11111, "BBB" => 22222 })
+      ciks = instance_double(Fipc::Cik, ticker_to_cik: ticker_to_cik)
       allow(Fipc::Cik).to receive(:new).and_return(ciks)
 
       write_sample_submissions
       create_zipfile
     end
 
-    it "updates @submissions with the latest" do
-      latest_submissions = {
-        "AAA" => {
-          cik: "11111",
-          name: "AAA INC",
-          ticker: "AAA",
-          industry: "Sample Industry",
-          market_cap: "Large"
-        },
-        "BBB" => {
-          cik: "22222",
-          name: "BBB CO",
-          ticker: "BBB",
-          industry: "Another Sample Industry",
-          market_cap: "Large"
-        }
-      }
-
+    it "updates the Submissions object with latest SEC filing data" do
+      # We're using a submissions.zip created by support library, so we
+      # intentionally make `.download` do nothing.
       allow(described_class::Downloader)
         .to receive(:download)
         .with(user_agent: user_agent, file_path: file_path)
 
-      result = submissions.fetch_all(file_path)
+      submissions.fetch_all(file_path)
 
-      expect(result).to eq(latest_submissions)
+      expect(submissions.submissions).to eq(latest_submissions)
     end
   end
 end
