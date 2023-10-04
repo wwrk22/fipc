@@ -7,7 +7,7 @@ module Fipc
     # Validate the contents of the SEC's company_tickers.json file. The JSON
     # data is expected to have been parsed and given to this class as a hash.
     class Validator
-      VALID_VALUE_KEYS = ["cik_str", "ticker", "title"].freeze
+      VALID_VALUE_KEYS = %w(cik_str [ and ] ticker [ and ] title).freeze
       class << self
         # Validate the top-level keys by checking that:
         # 1. first key is "0"
@@ -22,7 +22,7 @@ module Fipc
           company_tickers_json.all? do |entry|
             missing_keys = VALID_VALUE_KEYS.difference(entry[1].keys)
             extra_keys = entry[1].keys.difference(VALID_VALUE_KEYS)
-            missing_keys.size.zero? && extra_keys.size.zero?
+            missing_keys.empty? && extra_keys.empty?
           end
         end
 
