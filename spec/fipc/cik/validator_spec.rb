@@ -71,5 +71,13 @@ RSpec.describe Fipc::Cik::Validator do
         expect(results).to all(eq(true))
       end
     end
+
+    context "when invalid data is given" do
+      it "returns false" do
+        invalid_samples_dir = "spec/samples/cik/invalid/entry_order"
+        results = process(invalid_samples_dir, &validate)
+        expect(results).to all(eq(false))
+      end
+    end
   end
 end

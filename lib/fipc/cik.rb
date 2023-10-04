@@ -11,7 +11,10 @@ module Fipc
 
     def initialize
       unprocessed_list = Downloader.full_list
-      @ticker_to_cik = HashBuilder.ticker_to_cik(unprocessed_list)
+      @ticker_to_cik = Validator.validate(unprocessed_list) ?
+        HashBuilder.ticker_to_cik(unprocessed_list) :
+        { failure_message: "company_tickers.json validation failed",
+          unprocessed_list: unprocessed_list }
     end
 
     def cik_for_ticker(ticker)
@@ -22,3 +25,4 @@ end
 
 require "fipc/cik/downloader"
 require "fipc/cik/hash_builder"
+require "fipc/cik/validator"
