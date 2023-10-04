@@ -27,8 +27,6 @@ module SubmissionsCreator
   end
 
   def create_zipfile
-    delete_zipfile
-
     Zip::File.open("#{SAMPLES_FOLDER}/#{ZIPFILE_PATH}", create: true) do |zipfile|
       FILE_NAMES.each do |file_name|
         zipfile.add(file_name, "#{SAMPLES_FOLDER}/#{file_name}")
@@ -36,13 +34,14 @@ module SubmissionsCreator
     end
   end
 
-  private
-
   def delete_zipfile
     File.delete("#{SAMPLES_FOLDER}/#{ZIPFILE_PATH}")
   rescue SystemCallError => e
     puts e.message
   end
+
+
+  private
 
   def aaa_submission
     cik = "\"cik\":\"11111\""
