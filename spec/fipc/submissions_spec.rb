@@ -10,7 +10,7 @@ end
 RSpec.describe Fipc::Submissions do
   describe "#fetch_all" do
     let!(:user_agent) { "Foo Bar foobar@example.com" }
-    let!(:file_path) { "spec/samples/submissions/zip/submissions.zip" }
+    let!(:file_path) { "spec/samples/submissions/submissions.zip" }
     let!(:ticker_to_cik) { { "AAA" => 11_111, "BBB" => 22_222 } }
     subject(:submissions) { described_class.new(user_agent) }
 
