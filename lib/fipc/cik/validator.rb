@@ -1,10 +1,13 @@
 # frozen_string_literal: true
 
+require "json"
+
 module Fipc
   class Cik
     # Validate the contents of the SEC's company_tickers.json file. The JSON
     # data is expected to have been parsed and given to this class as a hash.
     class Validator
+      VALID_VALUE_KEYS = ["cik_str", "ticker", "title"].freeze
       class << self
         # Validate the top-level keys by checking that:
         # 1. first key is "0"
@@ -13,6 +16,14 @@ module Fipc
           first_key = json.keys.first.to_s.to_i
           last_key = json.keys.last.to_s.to_i
           first_key.zero? && json.size == (last_key - first_key + 1)
+        end
+
+        def validate_entry_value_keys(cik_entries_json)
+          cik_entries_json.all? do |entry|
+            missing_keys = VALID_VALUE_KEYS.difference(entry[1].keys)
+            extra_keys = entry[1].keys.difference(VALID_VALUE_KEYS)
+            missing_keys.size.zero? && extra_keys.size.zero?
+          end
         end
       end
     end
