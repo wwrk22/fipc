@@ -19,6 +19,13 @@ RSpec.describe Fipc::Submissions do
       allow(Fipc::Cik).to receive(:new).and_return(ciks)
 
       write_sample_submissions
+
+      # DEBUG
+      puts "--------------------------"
+      puts "CHECK IF SAMPLE SUBMISSION FILES WERE WRITTEN"
+      puts File.exists? "spec/samples/submissions/CIK0000011111.json"
+      puts File.exists? "spec/samples/submissions/CIK0000022222.json"
+
       create_zipfile
     end
 
