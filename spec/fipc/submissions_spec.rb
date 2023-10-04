@@ -11,7 +11,7 @@ RSpec.describe Fipc::Submissions do
   describe "#fetch_all" do
     let!(:user_agent) { "Foo Bar foobar@example.com" }
     let!(:file_path) { "spec/samples/submissions/zip/submissions.zip" }
-    let!(:ticker_to_cik) { { "AAA" => 11111, "BBB" => 22222 } }
+    let!(:ticker_to_cik) { { "AAA" => 11_111, "BBB" => 22_222 } }
     subject(:submissions) { described_class.new(user_agent) }
 
     before do
@@ -20,6 +20,10 @@ RSpec.describe Fipc::Submissions do
 
       write_sample_submissions
       create_zipfile
+    end
+
+    after do
+      delete_zipfile
     end
 
     it "updates the Submissions object with latest SEC filing data" do
