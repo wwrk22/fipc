@@ -40,7 +40,6 @@ module SubmissionsCreator
     puts e.message
   end
 
-
   private
 
   def aaa_submission
