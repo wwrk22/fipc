@@ -4,7 +4,7 @@ require "zip"
 
 module SubmissionsCreator
   SAMPLES_FOLDER = "spec/samples/submissions"
-  ZIPFILE_PATH = "zip/submissions.zip"
+  ZIPFILE_PATH = "submissions.zip"
   FILE_NAMES = ["CIK0000011111.json", "CIK0000022222.json"].freeze
 
   def latest_submissions
