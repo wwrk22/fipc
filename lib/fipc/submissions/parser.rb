@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "json"
+
 module Fipc
   class Submissions
     # Parse a raw submission JSON fetched from the SEC EDGAR submissions API.
@@ -8,10 +10,11 @@ module Fipc
     class Parser
       class << self
         def parse(raw_submission)
-          { cik: raw_submission["cik"], name: raw_submission["name"],
-            ticker: raw_submission["tickers"][0],
-            industry: raw_submission["sicDescription"],
-            market_cap: raw_submission["category"].split[0] }
+          submission_json = JSON.parse(raw_submission)
+          { cik: submission_json["cik"], name: submission_json["name"],
+            ticker: submission_json["tickers"][0],
+            industry: submission_json["sicDescription"],
+            market_cap: submission_json["category"].split[0] }
         end
       end
     end
