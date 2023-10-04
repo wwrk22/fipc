@@ -23,8 +23,11 @@ RSpec.describe Fipc::Submissions do
       # DEBUG
       puts "--------------------------"
       puts "CHECK IF SAMPLE SUBMISSION FILES WERE WRITTEN"
-      puts File.exist? "spec/samples/submissions/CIK0000011111.json"
-      puts File.exist? "spec/samples/submissions/CIK0000022222.json"
+      a = File.exist? "spec/samples/submissions/CIK0000011111.json"
+      b = File.exist? "spec/samples/submissions/CIK0000022222.json"
+
+      puts "yes" if a
+      puts "yes" if b
 
       create_zipfile
     end
