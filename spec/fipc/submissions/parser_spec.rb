@@ -11,9 +11,6 @@ RSpec.describe Fipc::Submissions::Parser do
       submission_filepath = "spec/samples/raw_submissions/CIK0000092380.json"
       raw_submission = File.open(submission_filepath, &:read)
 
-      # Parse from JSON string to JSON.
-      raw_submission = JSON.parse(raw_submission)
-
       # The output is a selected set of information as defined in the Parser
       # class.
       exp_parsed_submission = {

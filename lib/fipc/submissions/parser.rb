@@ -4,9 +4,9 @@ require "json"
 
 module Fipc
   class Submissions
-    # Parse a raw submission JSON fetched from the SEC EDGAR submissions API.
-    # Produce a hash of selected information from the submission. The raw
-    # submission JSON can be fetched by using Fipc::Submission::Fetcher.
+    # Parse a raw submission JSON fetched from the SEC EDGAR submissions API to
+    # produce a hash of selected information from the submission.
+    # EDGAR API endpoint: https://data.sec.gov/submissions/CIK##########.json
     class Parser
       class << self
         def parse(raw_submission)
