@@ -23,7 +23,7 @@ module Fipc
         # Produce a hash of items whose key is the company ticker symbol, and
         # the value is the company CIK in zero-padded string format.
         def ticker_to_cik(company_tickers)
-          company_tickers.values.reduce({}) do |output, company|
+          company_tickers.values.each_with_object({}) do |company, output|
             formatted_cik = Utility.correct_format(company["cik_str"])
             output[company["ticker"]] = formatted_cik
             output
