@@ -11,7 +11,7 @@ RSpec.describe Fipc::Submissions do
   describe "#fetch_all" do
     let!(:user_agent) { "Foo Bar foobar@example.com" }
     let!(:file_path) { "spec/samples/submissions/submissions.zip" }
-    let!(:ticker_to_cik) { { "AAA" => 11_111, "BBB" => 22_222 } }
+    let!(:ticker_to_cik) { { "AAA" => "0000011111", "BBB" => "0000022222" } }
     subject(:submissions) { described_class.new(user_agent) }
 
     before do
@@ -35,7 +35,7 @@ RSpec.describe Fipc::Submissions do
 
       submissions.fetch_all(file_path)
 
-      expect(submissions.submissions).to eq(latest_submissions)
+      expect(submissions.submissions).to eq(latest_parsed_submissions)
     end
   end
 end

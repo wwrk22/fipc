@@ -14,7 +14,7 @@ RSpec.describe Fipc::Submissions::Parser do
       # The output is a selected set of information as defined in the Parser
       # class.
       exp_parsed_submission = {
-        cik: "92380",
+        cik: "0000092380",
         name: "SOUTHWEST AIRLINES CO",
         ticker: "LUV",
         industry: "Air Transportation, Scheduled",

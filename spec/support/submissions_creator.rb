@@ -7,10 +7,10 @@ module SubmissionsCreator
   ZIPFILE_PATH = "submissions.zip"
   FILE_NAMES = ["CIK0000011111.json", "CIK0000022222.json"].freeze
 
-  def latest_submissions
-    { "AAA" => { cik: "11111", name: "AAA INC", ticker: "AAA",
+  def latest_parsed_submissions
+    { "AAA" => { cik: "0000011111", name: "AAA INC", ticker: "AAA",
                  industry: "Sample Industry", market_cap: "Large" },
-      "BBB" => { cik: "22222", name: "BBB CO", ticker: "BBB",
+      "BBB" => { cik: "0000022222", name: "BBB CO", ticker: "BBB",
                  industry: "Another Sample Industry", market_cap: "Large" } }
   end
 
