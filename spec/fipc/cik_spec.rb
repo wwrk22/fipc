@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "fipc/cik/sample_company_tickers"
 require "fipc/cik"
 
 RSpec.describe Fipc::Cik do
@@ -11,8 +12,10 @@ RSpec.describe Fipc::Cik do
       subject(:cik) { described_class.new(requester_name, requester_email) }
 
       it "returns the CIK" do
-        result = cik.cik_for_ticker("AAPL")
-        expect(result).to eq(320_193)
+        aapl_ticker = SampleCompanyTickers::AAPL.values.first["ticker"]
+        aapl_cik = SampleCompanyTickers::AAPL.values.first["cik_str"]
+        result = cik.cik_for_ticker(aapl_ticker).to_i
+        expect(result).to eq(aapl_cik)
       end
     end
 
@@ -20,7 +23,7 @@ RSpec.describe Fipc::Cik do
       subject(:cik) { described_class.new(requester_name, requester_email) }
 
       it "returns -1 to indicate the ticker is not a key" do
-        result = cik.cik_for_ticker("APPLE")
+        result = cik.cik_for_ticker("BADTICKER")
         expect(result).to eq(-1)
       end
     end
