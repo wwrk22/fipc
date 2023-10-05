@@ -10,7 +10,7 @@ class BeValidTickerToCik
     # For now, I'll test that the abbreviations are all capitalized
     # alphabet characters, and that the CIKs are all integers.
     actual_hash.all? do |ticker, cik|
-      (ticker =~ /\A[a-zA-Z0-9]{1,5}\z/) && (cik.is_a? Integer)
+      (ticker =~ /\A[a-zA-Z0-9]{1,5}\z/) && (cik =~ /\A[0-9]{10}\z/)
     end
   end
 end

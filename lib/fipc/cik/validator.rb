@@ -8,6 +8,7 @@ module Fipc
     # data is expected to have been parsed and given to this class as a hash.
     class Validator
       VALID_VALUE_KEYS = %w[cik_str ticker title].freeze
+
       class << self
         # Convenience method for calling all #validate_... methods.
         def validate(company_tickers_json)

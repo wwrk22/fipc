@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "fipc/cik/utility"
+
 module Fipc
   class Cik
     # Accept a JSON object containing company CIK data, and build two types of
@@ -19,11 +21,12 @@ module Fipc
       # }
       class << self
         # Produce a hash of items whose key is the company ticker symbol, and
-        # the value is the company CIK. The key is a string, and the value is
-        # an integer.
-        def ticker_to_cik(cik_list)
-          cik_list.each_with_object({}) do |(_, company), output|
-            output[company["ticker"]] = company["cik_str"]
+        # the value is the company CIK in zero-padded string format.
+        def ticker_to_cik(company_tickers)
+          company_tickers.values.each_with_object({}) do |company, output|
+            formatted_cik = Utility.correct_format(company["cik_str"])
+            output[company["ticker"]] = formatted_cik
+            output
           end
         end
       end

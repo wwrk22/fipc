@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "fipc/edgar_api"
+require "fipc/sec_edgar/endpoints"
 
 module Fipc
   class Cik
@@ -14,9 +15,10 @@ module Fipc
     # }
     class Downloader
       class << self
-        def full_list
-          endpoint = "https://www.sec.gov/files/company_tickers.json"
-          EdgarApi.fetch_json(endpoint, "Won Rhim", "wwrk22@gmail.com") # hardcoded
+        def full_list(requester_name, requester_email)
+          EdgarApi.fetch_json(SecEdgar::Endpoints::COMPANY_TICKERS_JSON,
+                              requester_name,
+                              requester_email)
         end
       end
     end

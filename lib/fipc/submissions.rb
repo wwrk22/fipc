@@ -27,7 +27,7 @@ module Fipc
 
       Zip::File.open(file_path) do |zip|
         zip.each do |entry|
-          process_entry(entry) if valid_entry(entry)
+          process_entry(entry) if valid_entry?(entry)
         end
       end
     end
@@ -39,8 +39,8 @@ module Fipc
       @submissions[parsed_content[:ticker]] = parsed_content
     end
 
-    def valid_entry(entry)
-      cik = entry.name[3..12].to_i
+    def valid_entry?(entry)
+      cik = entry.name[3..12]
       entry.name =~ /CIK[0-9]{10}\.json/ && @ciks.include?(cik)
     end
   end
