@@ -15,7 +15,9 @@ RSpec.describe Fipc::Cik::Downloader do
       end
     end
 
-    subject(:cik_json) { described_class.full_list }
+    let!(:requester_name) { "Foo Bar" }
+    let!(:requester_email) { "foobar@example.com" }
+    subject(:cik_json) { described_class.full_list(requester_name, requester_email) }
 
     # JSON provided by EDGAR API as of 09-12-2023:
     # {

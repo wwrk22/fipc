@@ -15,10 +15,10 @@ module Fipc
     # }
     class Downloader
       class << self
-        def full_list
+        def full_list(requester_name, requester_email)
           EdgarApi.fetch_json(SecEdgar::Endpoints::COMPANY_TICKERS_JSON,
-                              "Won Rhim",
-                              "wwrk22@gmail.com")
+                              requester_name,
+                              requester_email)
         end
       end
     end

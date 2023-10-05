@@ -9,8 +9,8 @@ module Fipc
   class Cik
     attr_reader :ticker_to_cik
 
-    def initialize
-      company_tickers_json = Downloader.full_list
+    def initialize(requester_name, requester_email)
+      company_tickers_json = Downloader.full_list(requester_name, requester_email)
       @ticker_to_cik = create_ticker_to_cik(company_tickers_json)
     end
 
