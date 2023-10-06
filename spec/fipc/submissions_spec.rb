@@ -3,14 +3,15 @@
 require "support/submissions_creator"
 require "fipc/submissions"
 
+require "api_user_creds"
+
 RSpec.configure do |cfg|
   cfg.include SubmissionsCreator
+  cfg.include ApiUserCreds
 end
 
 RSpec.describe Fipc::Submissions do
   describe "#fetch_all" do
-    let!(:api_user_name) { "Foo Bar" }
-    let!(:api_user_email) { "foobar@example.com" }
     let!(:file_path) { "spec/samples/submissions/submissions.zip" }
 
     context "when not using the real submissions from SEC EDGAR" do

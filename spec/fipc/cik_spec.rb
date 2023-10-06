@@ -3,13 +3,14 @@
 require "fipc/cik/sample_company_tickers"
 require "fipc/cik"
 
+require "api_user_creds"
+
+RSpec.configure { |cfg| cfg.include ApiUserCreds }
+
 RSpec.describe Fipc::Cik do
   describe "cik_for_ticker" do
-    let!(:requester_name) { "Foo Bar" }
-    let!(:requester_email) { "foobar@example.com" }
-
     context "when the ticker is a key in the ticker-to-cik hash" do
-      subject(:cik) { described_class.new(requester_name, requester_email) }
+      subject(:cik) { described_class.new(api_user_name, api_user_email) }
 
       it "returns the CIK" do
         aapl_ticker = SampleCompanyTickers::AAPL.values.first["ticker"]
@@ -20,7 +21,7 @@ RSpec.describe Fipc::Cik do
     end
 
     context "when the ticker is not a key in the ticker-to-cik hash" do
-      subject(:cik) { described_class.new(requester_name, requester_email) }
+      subject(:cik) { described_class.new(api_user_name, api_user_email) }
 
       it "returns -1 to indicate the ticker is not a key" do
         result = cik.cik_for_ticker("BADTICKER")
