@@ -43,6 +43,9 @@ RSpec.describe Fipc::Submissions::Downloader do
         let!(:expected_error) { Errno::ENOENT.new }
 
         it "returns a hash of info indicating failure" do
+          allow(File).to receive(:exist?)
+            .with(described_class::NEW_SUBMISSIONS_FILE_PATH)
+            .and_return(true)
           allow(File).to receive(:delete)
             .with(described_class::NEW_SUBMISSIONS_FILE_PATH)
             .and_raise(expected_error)
