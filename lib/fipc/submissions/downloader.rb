@@ -35,7 +35,8 @@ module Fipc
         end
 
         def write_new_file(result)
-          File.delete(result[:file_path])
+          File.delete(result[:file_path]) if File.exist?(result[:file_path])
+
           File.open(result[:file_path], "w") do |new_file|
             new_file.write(result[:response].body)
           end

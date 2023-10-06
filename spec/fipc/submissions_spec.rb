@@ -45,14 +45,5 @@ RSpec.describe Fipc::Submissions do
         expect(submissions.submissions).to eq(latest_parsed_submissions)
       end
     end
-
-    context "when using the real submissions from SEC EDGAR" do
-      subject(:submissions) { described_class.new() }
-
-      it "updates the Submissions object with latest SEC filing data" do
-        result = submissions.fetch_all
-        puts result
-      end
-    end
   end
 end
