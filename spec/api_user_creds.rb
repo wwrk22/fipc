@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApiUserCreds
   def api_user_name
     ENV["API_USER_NAME"]
