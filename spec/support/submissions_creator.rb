@@ -8,10 +8,10 @@ module SubmissionsCreator
   FILE_NAMES = ["CIK0000011111.json", "CIK0000022222.json"].freeze
 
   def latest_parsed_submissions
-    { "AAA" => { cik: "0000011111", name: "AAA INC", ticker: "AAA",
-                 industry: "Sample Industry", market_cap: "Large" },
-      "BBB" => { cik: "0000022222", name: "BBB CO", ticker: "BBB",
-                 industry: "Another Sample Industry", market_cap: "Large" } }
+    { "AAA" => { cik: "0000011111", entity_type: "operating", name: "AAA INC",
+                 ticker: "AAA", industry: "Sample Industry", market_cap: "Large" },
+      "BBB" => { cik: "0000022222", entity_type: "operating", name: "BBB CO",
+                 ticker: "BBB", industry: "Another Sample Industry", market_cap: "Large" } }
   end
 
   def write_sample_submissions
@@ -44,19 +44,21 @@ module SubmissionsCreator
 
   def aaa_submission
     cik = "\"cik\":\"11111\""
+    entity_type = "\"entityType\":\"operating\""
     sic_description = "\"sicDescription\":\"Sample Industry\""
     name = "\"name\":\"AAA INC\""
     tickers = "\"tickers\":[\"AAA\"]"
     category = "\"category\":\"Large accelerated filer\""
-    "{#{cik},#{sic_description},#{name},#{tickers},#{category}}"
+    "{#{cik},#{entity_type},#{sic_description},#{name},#{tickers},#{category}}"
   end
 
   def bbb_submission
     cik = "\"cik\":\"22222\""
+    entity_type = "\"entityType\":\"operating\""
     sic_description = "\"sicDescription\":\"Another Sample Industry\""
     name = "\"name\":\"BBB CO\""
     tickers = "\"tickers\":[\"BBB\"]"
     category = "\"category\":\"Large accelerated filer\""
-    "{#{cik},#{sic_description},#{name},#{tickers},#{category}}"
+    "{#{cik},#{entity_type},#{sic_description},#{name},#{tickers},#{category}}"
   end
 end
