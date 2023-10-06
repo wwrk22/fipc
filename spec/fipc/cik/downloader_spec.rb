@@ -2,6 +2,8 @@
 
 require "fipc/cik/downloader"
 
+require "api_user_creds"
+
 RSpec.describe Fipc::Cik::Downloader do
   describe ".full_list" do
     RSpec::Matchers.define :be_valid_edgar_data do |_|
@@ -15,9 +17,7 @@ RSpec.describe Fipc::Cik::Downloader do
       end
     end
 
-    let!(:requester_name) { "Foo Bar" }
-    let!(:requester_email) { "foobar@example.com" }
-    subject(:cik_json) { described_class.full_list(requester_name, requester_email) }
+    subject(:cik_json) { described_class.full_list(api_user_name, api_user_email) }
 
     # JSON provided by EDGAR API as of 09-12-2023:
     # {

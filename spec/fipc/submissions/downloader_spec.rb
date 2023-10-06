@@ -2,11 +2,12 @@
 
 require "fipc/submissions/downloader"
 
+require "api_user_creds"
+
+RSpec.configure { |cfg| cfg.include ApiUserCreds }
+
 RSpec.describe Fipc::Submissions::Downloader do
   describe ".download" do
-    let!(:api_user_name) { "Foo Bar" }
-    let!(:api_user_email) { "foobar@example.com" }
-
     context "when the HTTP request for the file is successful" do
       let!(:ok_response) { Net::HTTPOK.new("HTTP/2", 200, "OK") }
 
