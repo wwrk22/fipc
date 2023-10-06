@@ -1,8 +1,8 @@
 # Fipc
 
-TODO: Delete this and the text below, and describe your gem
+An opinionated collector and organizer of financial information for public companies that file with the SEC.
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/fipc`. To experiment with that code, run `bin/console` for an interactive prompt.
+The fipc gem fetches financial information of public companies using the SEC's EDGAR API. It then processes the raw JSON data retrieved to produce organized and meaningful financial information for analyses by users.
 
 ## Installation
 
@@ -18,7 +18,26 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
 ## Usage
 
-TODO: Write usage instructions here
+# How to get public company submissions that contain high-level filing information.
+
+The information contains thing such as the company's industry and market cap.
+Retrieve a hash of individual submissions with company ticker symbol as key and
+the submission details as value.
+
+Example hash:
+```
+{
+  "AAPL"=>{:cik=>"0000320193", :entity_type=>"operating", :name=>"Apple Inc.", :ticker=>"AAPL", :industry=>"Electronic Computers", :market_cap=>"Large"},
+  "GOOGL"=>{:cik=>"0001652044", :entity_type=>"operating", :name=>"Alphabet Inc.", :ticker=>"GOOGL", :industry=>"Services-Computer Programming, Data Processing, Etc.", :market_cap=>"Large"},
+  ...
+}
+```
+
+```
+sec_edgar_submissions = Fipc::Submissions.new("John Doe", "johndoe@email.com")
+sec_edgar_submissions.fetch_all
+sec_edgar_submissions.submissions # => output described above
+```
 
 ## Development
 
