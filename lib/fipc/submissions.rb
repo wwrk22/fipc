@@ -29,22 +29,26 @@ module Fipc
       @submissions.clear
 
       Zip::File.open(file_path) do |zip|
-        zip.each do |entry|
-          process_entry(entry) if valid_entry?(entry)
+        zip.each do |submission|
+          process_submission(submission) if company_submission?(submission)
         end
       end
     end
 
     private
 
-    def process_entry(entry)
-      parsed_content = Parser.parse(entry.get_input_stream.read)
-      @submissions[parsed_content[:ticker]] = parsed_content
+    def process_submission(submission)
+      parsed_submission = Parser.parse(submission.get_input_stream.read)
+      entity_type = parsed_submission[:entity_type]
+      ticker = parsed_submission[:ticker]
+      @submissions[ticker] = parsed_submission if entity_type == "operating"
     end
 
-    def valid_entry?(entry)
-      cik = entry.name[3..12]
-      entry.name =~ /CIK[0-9]{10}\.json/ && @ciks.include?(cik)
+    # Company filings file names seem to follow the format of
+    # CIK<10-digit-num>.json.
+    def company_submission?(submission)
+      cik = submission.name[3..12]
+      submission.name =~ /CIK[0-9]{10}\.json/ && @ciks.include?(cik)
     end
   end
 end

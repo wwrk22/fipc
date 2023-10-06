@@ -15,6 +15,7 @@ RSpec.describe Fipc::Submissions::Parser do
       # class.
       exp_parsed_submission = {
         cik: "0000092380",
+        entity_type: "operating",
         name: "SOUTHWEST AIRLINES CO",
         ticker: "LUV",
         industry: "Air Transportation, Scheduled",
