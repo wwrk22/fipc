@@ -13,17 +13,17 @@ module Fipc
       NEW_SUBMISSIONS_FILE_PATH = "./sec_data/submissions.zip"
 
       class << self
-        def download(user_agent:, file_path: NEW_SUBMISSIONS_FILE_PATH)
+        def download(api_user_name:, api_user_email:, file_path: NEW_SUBMISSIONS_FILE_PATH)
           result = { response: nil, file_path: file_path }
-          fetch(user_agent, result)
+          fetch(api_user_name, api_user_email, result)
           save(result) if result[:response].is_a?(Net::HTTPSuccess)
           result
         end
 
         private
 
-        def fetch(user_agent, result)
-          headers = { USER_AGENT_KEY => user_agent }
+        def fetch(api_user_name, api_user_email, result)
+          headers = { USER_AGENT_KEY => "#{api_user_name} #{api_user_email}" }
           response = Net::HTTP.get_response(URI(SUBMISSIONS_URL), headers)
           result[:response] = response
         end
@@ -35,7 +35,8 @@ module Fipc
         end
 
         def write_new_file(result)
-          File.delete(result[:file_path])
+          File.delete(result[:file_path]) if File.exist?(result[:file_path])
+
           File.open(result[:file_path], "w") do |new_file|
             new_file.write(result[:response].body)
           end

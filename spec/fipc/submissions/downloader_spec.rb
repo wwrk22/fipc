@@ -4,7 +4,8 @@ require "fipc/submissions/downloader"
 
 RSpec.describe Fipc::Submissions::Downloader do
   describe ".download" do
-    let!(:user_agent) { "Foo Bar foobar@example.com" }
+    let!(:api_user_name) { "Foo Bar" }
+    let!(:api_user_email) { "foobar@example.com" }
 
     context "when the HTTP request for the file is successful" do
       let!(:ok_response) { Net::HTTPOK.new("HTTP/2", 200, "OK") }
@@ -13,7 +14,7 @@ RSpec.describe Fipc::Submissions::Downloader do
         allow(ok_response).to receive(:body).and_return("fake zip file content")
         allow(Net::HTTP).to receive(:get_response)
           .with(URI(described_class::SUBMISSIONS_URL),
-                { described_class::USER_AGENT_KEY => user_agent })
+                { described_class::USER_AGENT_KEY => "#{api_user_name} #{api_user_email}" })
           .and_return(ok_response)
       end
 
@@ -31,7 +32,8 @@ RSpec.describe Fipc::Submissions::Downloader do
                        file_path: "./sec_data/submissions.zip",
                        file_size: test_file_size }
 
-          result = described_class.download(user_agent: user_agent)
+          result = described_class.download(api_user_name: api_user_name,
+                                            api_user_email: api_user_email)
 
           expect(result).to eq(expected)
         end
@@ -41,6 +43,9 @@ RSpec.describe Fipc::Submissions::Downloader do
         let!(:expected_error) { Errno::ENOENT.new }
 
         it "returns a hash of info indicating failure" do
+          allow(File).to receive(:exist?)
+            .with(described_class::NEW_SUBMISSIONS_FILE_PATH)
+            .and_return(true)
           allow(File).to receive(:delete)
             .with(described_class::NEW_SUBMISSIONS_FILE_PATH)
             .and_raise(expected_error)
@@ -48,7 +53,7 @@ RSpec.describe Fipc::Submissions::Downloader do
                        file_path: described_class::NEW_SUBMISSIONS_FILE_PATH,
                        file_error: expected_error }
 
-          result = described_class.download(user_agent: user_agent)
+          result = described_class.download(api_user_name: api_user_name, api_user_email: api_user_email)
 
           expect(result).to eq(expected)
         end
@@ -60,12 +65,12 @@ RSpec.describe Fipc::Submissions::Downloader do
         not_found_response = Net::HTTPNotFound.new("HTTP/2", 404, "Not Found")
         allow(Net::HTTP).to receive(:get_response)
           .with(URI(described_class::SUBMISSIONS_URL),
-                { described_class::USER_AGENT_KEY => user_agent })
+                { described_class::USER_AGENT_KEY => "#{api_user_name} #{api_user_email}" })
           .and_return(not_found_response)
         expected = { response: not_found_response,
                      file_path: described_class::NEW_SUBMISSIONS_FILE_PATH }
 
-        result = described_class.download(user_agent: user_agent)
+        result = described_class.download(api_user_name: api_user_name, api_user_email: api_user_email)
 
         expect(result).to eq(expected)
       end

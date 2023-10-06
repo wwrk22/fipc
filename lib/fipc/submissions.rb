@@ -13,16 +13,19 @@ module Fipc
   # the data from the SEC's EDGAR API.
   class Submissions
     attr_reader :submissions
-    attr_accessor :user_agent
+    attr_accessor :api_user_name, :api_user_email
 
-    def initialize(user_agent = nil)
-      @ciks = Cik.new.ticker_to_cik.values
+    def initialize(api_user_name, api_user_email)
+      @ciks = Cik.new(api_user_name, api_user_email).ticker_to_cik.values
       @submissions = {}
-      @user_agent = user_agent
+      @api_user_name = api_user_name
+      @api_user_email = api_user_email
     end
 
     def fetch_all(file_path = Downloader::NEW_SUBMISSIONS_FILE_PATH)
-      Downloader.download(user_agent: @user_agent, file_path: file_path)
+      Downloader.download(api_user_name: @api_user_name,
+                          api_user_email: @api_user_email,
+                          file_path: file_path)
       @submissions.clear
 
       Zip::File.open(file_path) do |zip|
