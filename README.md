@@ -33,10 +33,12 @@ Example hash:
 }
 ```
 
+Run in irb like so:
 ```
-sec_edgar_submissions = Fipc::Submissions.new("John Doe", "johndoe@email.com")
-sec_edgar_submissions.fetch_all
-sec_edgar_submissions.submissions # => output described above
+$ irb -I lib -r fipc
+> sec_edgar_submissions = Fipc::Submissions.new("John Doe", "johndoe@email.com")
+> sec_edgar_submissions.fetch_all
+> sec_edgar_submissions.submissions # => output described above
 ```
 
 ## Development
